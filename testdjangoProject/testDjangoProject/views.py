@@ -52,9 +52,6 @@ class ImageClassificationView(APIView):
 
                 # 클래스 레이블 정의
                 class_labels = {0: '고양이', 1: '공룡', 2: '강아지',3: '꼬북이',4: '티벳여우'}
-                # 2조
-                # class_labels = {0: '업소용냉장고', 1: 'cpu', 2: '드럼세탁기', 3: '냉장고', 4: '그래픽카드', 5: '메인보드'
-                #     , 6: '전자레인지', 7: '파워', 8: '램', 9: '스탠드에어컨', 10: 'TV', 11: '벽걸이에어컨', 12: '통돌이세탁기'}
 
                 # 정확도가 50% 미만인 경우 "기타"로 분류
                 max_confidence, predicted = torch.max(probabilities, 0)
@@ -68,7 +65,7 @@ class ImageClassificationView(APIView):
 
             # 응답 데이터
             response_data = {
-                '얼굴상 : ': predicted_class_label
+                'face_type : ': predicted_class_label
             }
 
             return Response(response_data, status=status.HTTP_200_OK)
