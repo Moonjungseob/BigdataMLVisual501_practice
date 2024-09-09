@@ -65,7 +65,8 @@ class ImageClassificationView(APIView):
 
             # 응답 데이터
             response_data = {
-                'face_type : ': predicted_class_label
+                'predictedClassLabel': predicted_class_label,  # 'predictedClassLabel'로 맞춤
+                'confidence': confidence  # 정확도 값도 함께 반환
             }
 
             return Response(response_data, status=status.HTTP_200_OK)
