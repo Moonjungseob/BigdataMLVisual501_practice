@@ -8,8 +8,8 @@ from PIL import Image
 import torch.nn.functional as F
 
 # 경로 설정 및 모델 로드
-model_weight_save_path = "testDjangoProject/resnet50_epoch_42_20240827_acc93.pth"
-num_classes= 3
+model_weight_save_path = "testDjangoProject/resnet50_epoch_48_team1_loss_2153_acc_69_52.pth"
+num_classes= 5
 
 # ResNet-50 모델 정의 및 로드
 model = models.resnet50(pretrained=False)
@@ -51,10 +51,7 @@ class ImageClassificationView(APIView):
                 confidence = probabilities[predicted_class_index].item()
 
                 # 클래스 레이블 정의
-                class_labels = {0: '먼치킨', 1: '샴', 2: '스핑크스'}
-                # 2조
-                # class_labels = {0: '업소용냉장고', 1: 'cpu', 2: '드럼세탁기', 3: '냉장고', 4: '그래픽카드', 5: '메인보드'
-                #     , 6: '전자레인지', 7: '파워', 8: '램', 9: '스탠드에어컨', 10: 'TV', 11: '벽걸이에어컨', 12: '통돌이세탁기'}
+                class_labels = {0: '고양이', 1: '공룡', 2: '강아지',3: '꼬북이',4: '티벳여우'}
 
                 # 정확도가 50% 미만인 경우 "기타"로 분류
                 max_confidence, predicted = torch.max(probabilities, 0)
@@ -68,10 +65,8 @@ class ImageClassificationView(APIView):
 
             # 응답 데이터
             response_data = {
-                'predicted_class_index': predicted_class_index,
-                'predicted_class_label': predicted_class_label,
-                'confidence': confidence,
-                'class_confidences': class_confidences
+                'predictedClassLabel': predicted_class_label,  # 'predictedClassLabel'로 맞춤
+                'confidence': confidence  # 정확도 값도 함께 반환
             }
 
             return Response(response_data, status=status.HTTP_200_OK)
